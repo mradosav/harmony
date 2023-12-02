@@ -112,7 +112,7 @@ LRESULT CALLBACK msgHndlr(HWND mHwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             pt.y = GET_Y_LPARAM(lParam);
             if (pt.y > topNote) {
                 int noteVal = MAX_NOTE - ((pt.y - topNote) / lineSpace);
-                if (guess.count(noteVal) == 1) {
+                if ((guess.count(noteVal) == 1)  && (guess.at(noteVal) != Note::CORRECT)) {
                     guess.erase(noteVal);
                 }
             }
