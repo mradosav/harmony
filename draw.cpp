@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "note.h"
+#include "scale.h"
 
 ID2D1HwndRenderTarget *renderTgt = NULL;
 ID2D1Factory *winFactory = NULL;
@@ -144,21 +145,13 @@ void paint(HWND hwnd, int score, std::vector<std::vector<Note *>> notes) {
     //Draw the lines
     for (int i = 0; i <= MAX_NOTE; i++) {
         float width = ((i % 12) == 0) ? 2.0f : 1.0f;
-        ((i % 12) == 0);
-        switch (i % 12) {
-            case 0:
-            case 2:
-            case 4:
-            case 5:
-            case 7:
-            case 9:
-            case 11:
+        int mod = i % 12;
+        for (int j = 0; j < Scale::NOTES_PER_SCALE; j++) {
+            if (mod == Scale::majorScaleMap[j]) {
                 D2D1_POINT_2F start = {padding, topNote + (float)(lineSpace * (MAX_NOTE - i))};
                 D2D1_POINT_2F end = {windWidth - padding, topNote + (float)(lineSpace * (MAX_NOTE - i))};
                 renderTgt->DrawLine(start, end, brushList[3], width, NULL);
-                break;
-            defaut:
-                break;
+            }
         }
     }
 
